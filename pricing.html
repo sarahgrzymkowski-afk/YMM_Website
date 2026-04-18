@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Your Modern Matriarch</title>
+  <meta name="description" content="Flexible monthly plans for personalized home management. Starting at $99/month — choose the services that matter most to your family." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { background: var(--bark); padding: 5rem 0 4rem; }
+    .page-hero h1 { color: var(--cream); max-width: 600px; }
+    .page-hero p { color: var(--parchment); opacity: .8; max-width: 500px; margin-top: 1rem; }
+    .page-hero h4 { color: var(--sage-lt); }
+    .page-hero .divider { background: var(--sage-lt); }
+
+    .pricing-section { background: var(--white); }
+    .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .tier-card {
+      background: var(--white); border: 1px solid var(--parchment);
+      border-radius: var(--radius-lg); padding: 2.5rem 2rem;
+      display: flex; flex-direction: column;
+    }
+    .tier-card.featured { border: 2px solid var(--terra); }
+    .tier-top { flex: 1; }
+    .tier-price-big { font-family: var(--font-display); font-size: 4rem; font-weight: 300; color: var(--bark); line-height: 1; }
+    .tier-price-big sup { font-size: 1.5rem; vertical-align: super; }
+    .tier-price-big sub { font-size: 1rem; color: var(--bark-mid); font-family: var(--font-body); }
+    .tier-label { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bark-mid); margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--parchment); }
+    .tier-tagline { font-size: 0.95rem; color: var(--bark-mid); margin-bottom: 1.5rem; line-height: 1.65; }
+    .tier-features { list-style: none; margin-bottom: 2rem; }
+    .tier-features li { font-size: 0.9rem; color: var(--bark-mid); padding: .45rem 0; display: flex; gap: .75rem; border-bottom: 1px solid var(--parchment); }
+    .tier-features li:last-child { border-bottom: none; }
+    .tier-features li::before { content: ''; display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--sage-lt); flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%237A8C72' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+
+    .included-section { background: var(--mist); }
+    .included-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .included-item { display: flex; gap: .75rem; align-items: flex-start; }
+    .included-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terra); flex-shrink: 0; margin-top: 6px; }
+
+    .compare-section { background: var(--white); }
+    .compare-table { width: 100%; border-collapse: collapse; margin-top: 2.5rem; font-size: .9rem; }
+    .compare-table th { text-align: left; font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bark-mid); font-weight: 500; padding: 1rem; border-bottom: 2px solid var(--parchment); }
+    .compare-table th:not(:first-child) { text-align: center; }
+    .compare-table td { padding: .9rem 1rem; border-bottom: 1px solid var(--parchment); color: var(--bark-mid); vertical-align: middle; }
+    .compare-table td:not(:first-child) { text-align: center; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .check { color: var(--sage); font-size: 1.1rem; }
+    .compare-table .dash { color: var(--parchment); font-size: 1.2rem; }
+    .compare-table .highlight-col { background: #fff8f6; }
+    .compare-table .feat-name { color: var(--bark); font-weight: 400; }
+
+    .faq-section { background: var(--cream); }
+    .faq-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; }
+    .faq-item { border-top: 1px solid var(--parchment); padding: 1.25rem 0; }
+    .faq-q { font-family: var(--font-display); font-size: 1.1rem; color: var(--bark); margin-bottom: .4rem; }
+    .faq-a { font-size: .9rem; color: var(--bark-mid); line-height: 1.65; }
+
+    @media (max-width: 900px) {
+      .tiers-grid { grid-template-columns: 1fr; }
+      .compare-section { display: none; }
+      .faq-two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="pricing.html" class="active">Pricing</a>
+      <a href="shop.html">Shop</a>
+      <a href="start-here.html" class="nav-cta btn">Get started</a>
+    </div>
+    <div class="nav-ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="shop.html">Shop</a>
+  <a href="start-here.html" class="btn btn-terra">Get started</a>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container fade-up">
+      <h4>Plans & pricing</h4>
+      <div class="divider"></div>
+      <h1>Invest in your peace of mind.</h1>
+      <p>Plans built for real families. Every tier includes personalized deliverables — not generic templates.</p>
+    </div>
+  </section>
+
+  <section class="section pricing-section">
+    <div class="container">
+      <div class="tiers-grid">
+
+        <div class="tier-card">
+          <div class="tier-top">
+            <div class="tier-price-big"><sup>$</sup>99<sub>/mo</sub></div>
+            <div class="tier-label">Starter — Choose any 3 services</div>
+            <div class="tier-tagline">Perfect for focused support in one or two areas of your home life.</div>
+            <ul class="tier-features">
+              <li>Pick any 3 services from the menu</li>
+              <li>Monthly personalized deliverables</li>
+              <li>Family profile on file</li>
+              <li>Templates included</li>
+              <li>Email support</li>
+              <li>Cancel anytime</li>
+            </ul>
+          </div>
+          <a href="start-here.html" class="btn btn-outline">Get started</a>
+        </div>
+
+        <div class="tier-card featured">
+          <div class="pill pill-terra" style="margin-bottom:1rem;">Most popular</div>
+          <div class="tier-top">
+            <div class="tier-price-big"><sup>$</sup>199<sub>/mo</sub></div>
+            <div class="tier-label">Essential — Choose any 6 services</div>
+            <div class="tier-tagline">Whole-home support with a deep-dive family profile and monthly check-in.</div>
+            <ul class="tier-features">
+              <li>Pick any 6 services from the menu</li>
+              <li>Onboarding intake call</li>
+              <li>Deep-dive family profile</li>
+              <li>Monthly check-in included</li>
+              <li>Seasonal planning</li>
+              <li>Priority email support</li>
+              <li>Deliverables within 3 business days</li>
+              <li>Cancel anytime</li>
+            </ul>
+          </div>
+          <a href="start-here.html" class="btn btn-terra">Get started</a>
+        </div>
+
+        <div class="tier-card">
+          <div class="tier-top">
+            <div class="tier-price-big"><sup>$</sup>349<sub>/mo</sub></div>
+            <div class="tier-label">Premium — All services included</div>
+            <div class="tier-tagline">Full-service support with a live monthly call and direct access whenever you need it.</div>
+            <ul class="tier-features">
+              <li>All services included</li>
+              <li>Everything in Essential</li>
+              <li>Monthly live video call</li>
+              <li>Deliverables within 2 business days</li>
+              <li>Text/Slack access</li>
+              <li>Proactive seasonal updates</li>
+              <li>Interim profile updates anytime</li>
+              <li>Cancel anytime</li>
+            </ul>
+          </div>
+          <a href="start-here.html" class="btn btn-outline">Get started</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S ALWAYS INCLUDED -->
+  <section class="section included-section">
+    <div class="container">
+      <h4>Every plan includes</h4>
+      <div class="divider"></div>
+      <h2>No matter your tier, this is your baseline.</h2>
+      <div class="included-grid">
+        <div class="included-item"><div class="included-dot"></div><div><strong style="font-size:.9rem; color:var(--bark);">A family profile</strong><p style="font-size:.85rem; margin-top:2px;">Your household's specifics are always on file. Every deliverable is built around your real family, not a generic one.</p></div></div>
+        <div class="included-item"><div class="included-dot"></div><div><strong style="font-size:.9rem; color:var(--bark);">Personalized deliverables</strong><p style="font-size:.85rem; margin-top:2px;">Nothing is templated and handed over. Everything is made for you.</p></div></div>
+        <div class="included-item"><div class="included-dot"></div><div><strong style="font-size:.9rem; color:var(--bark);">Service flexibility</strong><p style="font-size:.85rem; margin-top:2px;">Swap your services once per billing cycle. Your needs shift — your plan can too.</p></div></div>
+        <div class="included-item"><div class="included-dot"></div><div><strong style="font-size:.9rem; color:var(--bark);">No long contracts</strong><p style="font-size:.85rem; margin-top:2px;">Cancel before your renewal date and you won't be charged. Simple as that.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="section compare-section">
+    <div class="container">
+      <h4>Plan comparison</h4>
+      <div class="divider"></div>
+      <h2>See what's in each plan.</h2>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:40%">Feature</th>
+            <th>Starter<br><span style="font-weight:300; font-family:var(--font-display); font-size:1.1rem; text-transform:none; letter-spacing:0;">$99/mo</span></th>
+            <th class="highlight-col">Essential<br><span style="font-weight:300; font-family:var(--font-display); font-size:1.1rem; text-transform:none; letter-spacing:0; color:var(--terra);">$199/mo</span></th>
+            <th>Premium<br><span style="font-weight:300; font-family:var(--font-display); font-size:1.1rem; text-transform:none; letter-spacing:0;">$349/mo</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat-name">Number of services</td><td>3</td><td class="highlight-col">6</td><td>All</td></tr>
+          <tr><td class="feat-name">Family profile</td><td><span class="check">✓</span></td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td class="feat-name">Personalized deliverables</td><td><span class="check">✓</span></td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td class="feat-name">Onboarding call</td><td><span class="dash">—</span></td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td class="feat-name">Monthly check-in</td><td><span class="dash">—</span></td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td class="feat-name">Monthly live call</td><td><span class="dash">—</span></td><td class="highlight-col"><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td class="feat-name">Seasonal planning</td><td><span class="dash">—</span></td><td class="highlight-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td class="feat-name">Text/Slack access</td><td><span class="dash">—</span></td><td class="highlight-col"><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td class="feat-name">Turnaround time</td><td>5 days</td><td class="highlight-col">3 days</td><td>2 days</td></tr>
+          <tr><td class="feat-name">Interim updates</td><td><span class="dash">—</span></td><td class="highlight-col"><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section">
+    <div class="container">
+      <h4>Questions</h4>
+      <div class="divider"></div>
+      <h2 style="margin-bottom:2rem;">Straightforward answers.</h2>
+      <div class="faq-two-col">
+        <div>
+          <div class="faq-item"><div class="faq-q">Can I cancel anytime?</div><div class="faq-a">Yes. Cancel before your next billing date and you won't be charged. No cancellation fees, no awkward calls.</div></div>
+          <div class="faq-item"><div class="faq-q">Can I upgrade or downgrade?</div><div class="faq-a">Upgrade anytime — your new tier kicks in immediately. Downgrades apply at the start of your next billing cycle.</div></div>
+          <div class="faq-item"><div class="faq-q">Is there an annual discount?</div><div class="faq-a">Yes — annual subscribers save the equivalent of two months. Reach out to ask about annual pricing.</div></div>
+        </div>
+        <div>
+          <div class="faq-item"><div class="faq-q">What payment methods do you accept?</div><div class="faq-a">All major credit and debit cards via Stripe. Billing is automatic on your monthly renewal date.</div></div>
+          <div class="faq-item"><div class="faq-q">Can I change my selected services?</div><div class="faq-a">Once per billing cycle. Just reach out before your renewal date and we'll update your services for the following month.</div></div>
+          <div class="faq-item"><div class="faq-q">Not sure which plan to pick?</div><div class="faq-a">Most moms start with Essential — it covers the most ground and includes the onboarding call that makes everything click. You can always start with Starter and move up.</div></div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:3rem;">
+        <a href="start-here.html" class="btn btn-terra">Get started today</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="pricing.html">Pricing</a><a href="shop.html">Shop</a><a href="start-here.html">Get started</a>
+    </div>
+    <p>&copy; 2025 Your Modern Matriarch. All rights reserved.</p>
+  </div>
+</footer>
+<script>function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}</script>
+</body>
+</html>
