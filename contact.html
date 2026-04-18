@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get in Touch — Your Modern Matriarch</title>
+  <meta name="description" content="Contact Your Modern Matriarch. Ask a question, request more info, or get started with your subscription." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { background: var(--blue-bg); padding: 4.5rem 0 3.5rem; border-bottom: 1px solid var(--border); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+    .contact-info h3 { margin-bottom: .5rem; }
+    .contact-info p  { font-size: .95rem; }
+    .info-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .info-item-label { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sage-dk); margin-bottom: 3px; }
+    .info-item-val { font-size: .95rem; color: var(--ink-mid); }
+
+    /* FORM */
+    .contact-form { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 2.5rem; }
+    .form-row { margin-bottom: 1.25rem; }
+    .form-row label { display: block; font-size: .78rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: .5rem; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; font-family: var(--font-body); font-size: .95rem; color: var(--ink);
+      background: var(--off-white); border: 1.5px solid var(--border);
+      border-radius: var(--r); padding: 11px 14px; transition: border-color .2s;
+      outline: none; -webkit-appearance: none;
+    }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--sage); background: var(--white); }
+    .form-row textarea { min-height: 120px; resize: vertical; }
+    .form-row select { cursor: pointer; }
+    .form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-note { font-size: .8rem; color: var(--ink-light); margin-top: .4rem; }
+    .form-submit { margin-top: 1.75rem; }
+    .form-success { display: none; background: var(--sage-bg); border: 1px solid var(--sage-lt); border-radius: var(--r-lg); padding: 1.5rem; text-align: center; }
+    .form-success h3 { color: var(--sage-dk); margin-bottom: .5rem; }
+    .form-success p  { color: var(--ink-mid); font-size: .9rem; margin: 0; }
+
+    /* SETUP INSTRUCTIONS (shown to site owner, hide before publishing) */
+    .setup-banner { background: var(--blush-bg); border: 1.5px dashed var(--blush-lt); border-radius: var(--r-lg); padding: 1.5rem 2rem; margin-bottom: 2rem; }
+    .setup-banner h4 { color: var(--blush-dk); margin-bottom: .75rem; }
+    .setup-banner ol { font-size: .88rem; color: var(--ink-mid); padding-left: 1.25rem; line-height: 1.9; }
+    .setup-banner code { background: var(--blush-lt); padding: 1px 6px; border-radius: 3px; font-size: .85em; color: var(--blush-dk); }
+    .setup-banner p { font-size: .82rem; color: var(--ink-light); margin-top: .75rem; }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="shop.html">Shop</a>
+      <a href="start-here.html" class="nav-cta btn">Get started</a>
+    </div>
+    <button class="nav-ham" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="how-it-works.html">How it works</a>
+  <a href="services.html">Services</a><a href="pricing.html">Pricing</a>
+  <a href="shop.html">Shop</a>
+  <a href="start-here.html" class="btn btn-sage">Get started</a>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container fade-up">
+      <h4>Get in touch</h4>
+      <div class="divider divider-blue"></div>
+      <h1>We'd love to hear from you.</h1>
+      <p style="max-width:480px; margin-top:.75rem">Questions about a plan, curious about whether we're a good fit, or just want to say hi — fill out the form and we'll be in touch within one business day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- SETUP INSTRUCTIONS — remove this block before publishing -->
+      <div class="setup-banner">
+        <h4>Setup instructions (remove this block before publishing)</h4>
+        <ol>
+          <li>Go to <strong>formspree.io</strong> and create a free account. Create a new form and copy your form ID (looks like <code>xpwzabcd</code>).</li>
+          <li>In the <code>&lt;form&gt;</code> tag below, replace <code>YOUR_FORMSPREE_ID</code> with your actual form ID. Formspree will email every submission to the address you sign up with — use your GoDaddy email.</li>
+          <li>For Google Sheets logging: in Google Sheets, go to <strong>Extensions → Apps Script</strong>. Paste the script from <code>README.md</code> (included in your download). Deploy it as a web app, copy the URL, and replace <code>YOUR_GOOGLE_SCRIPT_URL</code> below.</li>
+          <li>Test the form, then delete this pink box before going live.</li>
+        </ol>
+        <p>Both Formspree (free tier: 50 submissions/month) and Google Sheets logging are completely free to start.</p>
+      </div>
+
+      <div class="contact-layout">
+        <div class="contact-info">
+          <h4>Reach out</h4>
+          <div class="divider divider-blue"></div>
+          <h3>Not sure if we're a good fit? Just ask.</h3>
+          <p>There's no pressure and no sales pitch. If you're curious whether Your Modern Matriarch can help your household, we'll give you an honest answer.</p>
+          <div class="info-items">
+            <div>
+              <div class="info-item-label">Response time</div>
+              <div class="info-item-val">Within 1 business day</div>
+            </div>
+            <div>
+              <div class="info-item-label">Already a member?</div>
+              <div class="info-item-val">Use this form for support requests or to update your family profile.</div>
+            </div>
+            <div>
+              <div class="info-item-label">Prefer email?</div>
+              <div class="info-item-val">hello@yourmodernmatriarch.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <div id="formSuccess" class="form-success">
+            <h3>Message received!</h3>
+            <p>Thank you for reaching out. We'll be in touch within one business day.</p>
+          </div>
+
+          <form id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+            <input type="hidden" name="_subject" value="New inquiry — Your Modern Matriarch" />
+
+            <div class="form-two-col">
+              <div class="form-row">
+                <label for="fname">First name</label>
+                <input type="text" id="fname" name="first_name" required placeholder="Sarah" />
+              </div>
+              <div class="form-row">
+                <label for="lname">Last name</label>
+                <input type="text" id="lname" name="last_name" placeholder="Johnson" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" required placeholder="sarah@example.com" />
+            </div>
+
+            <div class="form-row">
+              <label for="interest">I'm interested in</label>
+              <select id="interest" name="interest">
+                <option value="">Select one…</option>
+                <option value="starter">Starter plan ($99/mo)</option>
+                <option value="essential">Essential plan ($199/mo)</option>
+                <option value="premium">Premium plan ($349/mo)</option>
+                <option value="shop">Shop / templates only</option>
+                <option value="question">Just have a question</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="kids">How many kids (and ages)?</label>
+              <input type="text" id="kids" name="kids" placeholder="e.g. Two — ages 7 and 10" />
+            </div>
+
+            <div class="form-row">
+              <label for="message">Anything else you'd like us to know?</label>
+              <textarea id="message" name="message" placeholder="Tell us about your household — what's the hardest part of the week? Any allergies or special considerations?"></textarea>
+              <div class="form-note">The more you share, the better we can tailor our response.</div>
+            </div>
+
+            <div class="form-submit">
+              <button type="submit" class="btn btn-sage" style="width:100%">Send message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="how-it-works.html">How it works</a>
+      <a href="services.html">Services</a><a href="pricing.html">Pricing</a>
+      <a href="shop.html">Shop</a><a href="start-here.html">Get started</a>
+    </div>
+    <p>&copy; 2025 Your Modern Matriarch. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+
+const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL';
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+
+  // 1. Send to Formspree (→ your GoDaddy email)
+  try {
+    await fetch(form.action, {
+      method: 'POST', body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+  } catch(err) { console.warn('Formspree error', err); }
+
+  // 2. Send to Google Sheets (if configured)
+  if (GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL') {
+    const obj = {};
+    data.forEach((v, k) => obj[k] = v);
+    obj.submitted_at = new Date().toISOString();
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(obj),
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch(err) { console.warn('Sheets error', err); }
+  }
+
+  // Show success state
+  form.style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+});
+</script>
+</body>
+</html>

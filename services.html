@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services Menu — Your Modern Matriarch</title>
+  <meta name="description" content="Browse our full service menu and build the support plan that fits your family. Starter picks 3, Essential picks 6, Premium gets everything." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { background: var(--sage-bg); padding: 4.5rem 0 3.5rem; border-bottom: 1px solid var(--border); }
+    .page-hero h1 { max-width: 620px; }
+    .page-hero p  { max-width: 520px; margin-top:.75rem; font-size:1.05rem; }
+
+    /* ── TIER PICKER BAR ── */
+    .tier-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 1.25rem 0; position: sticky; top: var(--nav-h); z-index: 50; }
+    .tier-bar-inner { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .tier-bar-label { font-size: 0.75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-light); margin-right: .5rem; }
+    .tier-btn {
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
+      letter-spacing: .06em; padding: 9px 22px; border-radius: 30px;
+      border: 1.5px solid var(--border-mid); background: transparent;
+      color: var(--ink-mid); cursor: pointer; transition: all .2s;
+    }
+    .tier-btn.active-starter { background: var(--sage-bg);    border-color: var(--sage);    color: var(--sage-dk); }
+    .tier-btn.active-essential{ background: var(--blue-bg);    border-color: var(--blue);    color: var(--blue-dk); }
+    .tier-btn.active-premium  { background: var(--blush-bg);   border-color: var(--blush);   color: var(--blush-dk); }
+    .selection-counter { margin-left: auto; font-size: 0.82rem; color: var(--ink-light); }
+    .selection-counter strong { color: var(--ink); }
+
+    /* ── SERVICE GRID ── */
+    .services-section { background: var(--white); }
+    .cat-section { margin-bottom: 3rem; }
+    .cat-heading {
+      display: flex; align-items: center; gap: 1rem;
+      padding-bottom: .75rem; border-bottom: 1.5px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .cat-heading h3 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-mid); }
+    .cat-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+    .cat-dot.blue  { background: var(--blue); }
+    .cat-dot.blush { background: var(--blush); }
+    .cat-dot.lav   { background: var(--lavender); }
+
+    .service-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1rem; }
+    .service-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: var(--r-lg);
+      padding: 1.5rem; cursor: pointer; transition: all .2s; position: relative;
+      user-select: none;
+    }
+    .service-card:hover { border-color: var(--sage-lt); box-shadow: 0 4px 20px rgba(44,52,40,.06); }
+    .service-card.selected-starter  { border-color: var(--sage);  background: var(--sage-bg); }
+    .service-card.selected-essential{ border-color: var(--blue);  background: var(--blue-bg); }
+    .service-card.selected-premium  { border-color: var(--blush); background: var(--blush-bg); }
+    .service-card.at-limit { opacity: .5; cursor: not-allowed; }
+    .service-card.at-limit:hover { border-color: var(--border); box-shadow: none; }
+
+    .check-circle {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1.5px solid var(--border-mid); background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .check-circle svg { width: 11px; height: 11px; opacity: 0; transition: opacity .2s; }
+    .service-card.selected-starter  .check-circle { background: var(--sage);  border-color: var(--sage); }
+    .service-card.selected-essential .check-circle { background: var(--blue);  border-color: var(--blue); }
+    .service-card.selected-premium  .check-circle { background: var(--blush); border-color: var(--blush); }
+    .service-card[class*="selected"] .check-circle svg { opacity: 1; }
+
+    .service-icon {
+      width: 36px; height: 36px; border-radius: 8px; margin-bottom: 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .service-icon.sage   { background: var(--sage-bg); }
+    .service-icon.blue   { background: var(--blue-bg); }
+    .service-icon.blush  { background: var(--blush-bg); }
+    .service-icon.lav    { background: var(--lavender-bg); }
+    .service-icon svg { width: 18px; height: 18px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .service-icon.sage  svg { stroke: var(--sage-dk); }
+    .service-icon.blue  svg { stroke: var(--blue-dk); }
+    .service-icon.blush svg { stroke: var(--blush-dk); }
+    .service-icon.lav   svg { stroke: var(--lavender-dk); }
+
+    .service-name { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: .4rem; line-height: 1.3; }
+    .service-desc { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.65; margin: 0; }
+
+    /* ── STICKY FOOTER CTA ── */
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(253,252,250,.97); backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border); padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; transform: translateY(100%);
+      transition: transform .3s ease; z-index: 80;
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta-left { display: flex; flex-direction: column; gap: 2px; }
+    .sticky-cta-title { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
+    .sticky-cta-sub { font-size: 0.78rem; color: var(--ink-light); }
+    .selected-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; max-width: 600px; }
+    .selected-pill {
+      font-size: 0.72rem; padding: 3px 10px; border-radius: 20px;
+      background: var(--sage-bg); color: var(--sage-dk); border: 1px solid var(--sage-lt);
+    }
+    .selected-pill.blue  { background: var(--blue-bg);  color: var(--blue-dk);  border-color: var(--blue-lt); }
+    .selected-pill.blush { background: var(--blush-bg); color: var(--blush-dk); border-color: var(--blush-lt); }
+
+    /* ── INFO BAND ── */
+    .info-band { background: var(--off-white); padding: 3rem 0; }
+    .info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .info-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.75rem; text-align: center; }
+    .info-price { font-family: var(--font-display); font-size: 2.4rem; font-weight: 400; color: var(--ink); margin-bottom: .25rem; }
+    .info-name  { font-size: 0.72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-light); margin-bottom: .75rem; }
+    .info-note  { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.65; }
+
+    @media (max-width: 768px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .tier-bar-inner { gap: .6rem; }
+      .sticky-cta { padding: .75rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="shop.html">Shop</a>
+      <a href="start-here.html" class="nav-cta btn">Get started</a>
+    </div>
+    <button class="nav-ham" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="how-it-works.html">How it works</a>
+  <a href="services.html">Services</a><a href="pricing.html">Pricing</a>
+  <a href="shop.html">Shop</a>
+  <a href="start-here.html" class="btn btn-sage">Get started</a>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container fade-up">
+      <h4>The service menu</h4>
+      <div class="divider"></div>
+      <h1>Pick what matters most to your family.</h1>
+      <p>Browse every service we offer, then select your tier below to see how many you can choose — and start building your plan.</p>
+    </div>
+  </section>
+
+  <!-- TIER PICKER -->
+  <div class="tier-bar">
+    <div class="container">
+      <div class="tier-bar-inner">
+        <span class="tier-bar-label">I'm on the</span>
+        <button class="tier-btn" id="btn-starter"   onclick="setTier('starter')">Starter — pick 3</button>
+        <button class="tier-btn" id="btn-essential" onclick="setTier('essential')">Essential — pick 6</button>
+        <button class="tier-btn" id="btn-premium"   onclick="setTier('premium')">Premium — all included</button>
+        <span class="selection-counter" id="counter">Select a tier to begin</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section services-section">
+    <div class="container">
+
+      <!-- MEALS -->
+      <div class="cat-section">
+        <div class="cat-heading">
+          <div class="cat-dot"></div>
+          <h3>Meals &amp; nutrition</h3>
+        </div>
+        <div class="service-cards">
+          <div class="service-card" data-id="meal-plan" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon sage"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h1.5"/></svg></div>
+            <div class="service-name">Weekly meal plan</div>
+            <p class="service-desc">A full week of dinners — and lunches if you need them — planned around your family's tastes, allergies, and how crazy each evening is.</p>
+          </div>
+          <div class="service-card" data-id="grocery" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon sage"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+            <div class="service-name">Grocery list</div>
+            <p class="service-desc">A ready-to-use shopping list organized by store section, tied directly to your meal plan and your household's staples.</p>
+          </div>
+          <div class="service-card" data-id="allergy" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon sage"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="service-name">Allergy-safe meal guide</div>
+            <p class="service-desc">Every meal flagged and filtered for your specific allergies or dietary restrictions. No more double-checking every recipe yourself.</p>
+          </div>
+          <div class="service-card" data-id="batch" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon sage"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="service-name">Batch cooking guide</div>
+            <p class="service-desc">A Sunday prep plan that gets four dinners ready in one session. Includes timing, storage tips, and a matching grocery list.</p>
+          </div>
+          <div class="service-card" data-id="snacks" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon sage"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+            <div class="service-name">Snack rotation</div>
+            <p class="service-desc">A monthly rotation of kid-approved snack ideas based on what your children actually like, their ages, and any allergies.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCHEDULING -->
+      <div class="cat-section">
+        <div class="cat-heading">
+          <div class="cat-dot blue"></div>
+          <h3>Scheduling &amp; logistics</h3>
+        </div>
+        <div class="service-cards">
+          <div class="service-card" data-id="calendar" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blue"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="service-name">Family calendar</div>
+            <p class="service-desc">A monthly calendar built around your household — sports, school events, appointments, and everything else in one clear view.</p>
+          </div>
+          <div class="service-card" data-id="sports" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+            <div class="service-name">Sports &amp; activity tracker</div>
+            <p class="service-desc">All your kids' practices, games, and activities in one place — with reminders built in for gear, snacks, and carpool timing.</p>
+          </div>
+          <div class="service-card" data-id="agenda" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blue"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+            <div class="service-name">Weekly agenda</div>
+            <p class="service-desc">A single-page weekly plan with meals, activities, errands, and to-dos laid out — so you can see the whole week at a glance.</p>
+          </div>
+          <div class="service-card" data-id="carpool" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blue"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+            <div class="service-name">Carpool coordination plan</div>
+            <p class="service-desc">A weekly carpool schedule organized by kid and activity — so you're not figuring out pickup logistics in the school parking lot.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOME -->
+      <div class="cat-section">
+        <div class="cat-heading">
+          <div class="cat-dot blush"></div>
+          <h3>Home management</h3>
+        </div>
+        <div class="service-cards">
+          <div class="service-card" data-id="cleaning" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blush"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div class="service-name">Cleaning schedule</div>
+            <p class="service-desc">Daily, weekly, and monthly tasks organized by room or zone — and assigned by person if you want everyone to have a job.</p>
+          </div>
+          <div class="service-card" data-id="chores" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blush"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+            <div class="service-name">Chore chart</div>
+            <p class="service-desc">Age-appropriate chores assigned to your actual kids by name, with a reward tracking system that you can adjust to fit your family.</p>
+          </div>
+          <div class="service-card" data-id="inventory" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blush"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+            <div class="service-name">Household inventory tracker</div>
+            <p class="service-desc">A running list of your household staples — pantry, cleaning supplies, medications — so you stop buying things you already have.</p>
+          </div>
+          <div class="service-card" data-id="maintenance" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon blush"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+            <div class="service-name">Home maintenance calendar</div>
+            <p class="service-desc">Seasonal and monthly reminders for filters, HVAC, gutters, and all the home tasks that slip through the cracks until something breaks.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KIDS & SCHOOL -->
+      <div class="cat-section">
+        <div class="cat-heading">
+          <div class="cat-dot lav"></div>
+          <h3>Kids &amp; school</h3>
+        </div>
+        <div class="service-cards">
+          <div class="service-card" data-id="homework" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon lav"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+            <div class="service-name">Homework &amp; study tracker</div>
+            <p class="service-desc">A weekly tracker for each child's assignments, tests, and projects — so nothing gets missed and homework time actually has a plan.</p>
+          </div>
+          <div class="service-card" data-id="backtoschool" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon lav"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <div class="service-name">Back-to-school planner</div>
+            <p class="service-desc">Supplies lists, schedule overview, teacher contacts, and first-week prep — customized for each of your kids.</p>
+          </div>
+          <div class="service-card" data-id="summer" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon lav"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+            <div class="service-name">Summer activity planner</div>
+            <p class="service-desc">Camps, day trips, activity ideas, and a daily routine structure so summer doesn't turn into chaos by week two.</p>
+          </div>
+          <div class="service-card" data-id="birthday" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon lav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="service-name">Birthday &amp; event checklist</div>
+            <p class="service-desc">A timeline and checklist for kids' parties or family events — invites, supplies, food, activities — so nothing falls through the cracks.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEASONAL / BONUS -->
+      <div class="cat-section">
+        <div class="cat-heading">
+          <div class="cat-dot" style="background:var(--lavender)"></div>
+          <h3>Seasonal &amp; special planning <span style="font-size:.68rem; color:var(--ink-hint); letter-spacing:.06em; margin-left:.5rem;">(Essential &amp; Premium)</span></h3>
+        </div>
+        <div class="service-cards">
+          <div class="service-card" data-id="seasonal" data-essential-only="true" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon lav"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
+            <div class="service-name">Seasonal transition plan</div>
+            <p class="service-desc">A quarterly reset — wardrobe swaps, pantry updates, school year transitions — so the season change doesn't sneak up on you.</p>
+          </div>
+          <div class="service-card" data-id="holiday" data-essential-only="true" onclick="toggleService(this)">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white"/></svg></div>
+            <div class="service-icon lav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+            <div class="service-name">Holiday &amp; gift planner</div>
+            <p class="service-desc">A timeline for holidays with gift tracking, budget breakdown, and a prep schedule so you're not panic-shopping in December.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TIER INFO -->
+  <section class="info-band">
+    <div class="container">
+      <h4 style="text-align:center">Plan overview</h4>
+      <div class="divider divider-center"></div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-price">$99<span style="font-size:.85rem; font-family:var(--font-body); color:var(--ink-light)">/mo</span></div>
+          <div class="info-name">Starter — pick 3</div>
+          <div class="info-note">Choose any 3 services from the menu above. Great for getting focused support in one or two areas of your home life.</div>
+          <a href="start-here.html" class="btn btn-outline" style="margin-top:1.25rem; font-size:.76rem; padding:9px 20px">Get started</a>
+        </div>
+        <div class="info-card" style="border-color:var(--sage); background:var(--sage-bg)">
+          <div class="pill">Most popular</div>
+          <div class="info-price">$199<span style="font-size:.85rem; font-family:var(--font-body); color:var(--ink-light)">/mo</span></div>
+          <div class="info-name">Essential — pick 6</div>
+          <div class="info-note">Pick 6 services plus get an onboarding call, a deep family intake, and a monthly check-in. This is where the full experience begins.</div>
+          <a href="start-here.html" class="btn btn-sage" style="margin-top:1.25rem; font-size:.76rem; padding:9px 20px">Get started</a>
+        </div>
+        <div class="info-card">
+          <div class="info-price">$349<span style="font-size:.85rem; font-family:var(--font-body); color:var(--ink-light)">/mo</span></div>
+          <div class="info-name">Premium — all services</div>
+          <div class="info-note">Everything included. Monthly live call, fastest turnaround, direct text/Slack access, and proactive seasonal planning built in.</div>
+          <a href="start-here.html" class="btn btn-outline" style="margin-top:1.25rem; font-size:.76rem; padding:9px 20px">Get started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- STICKY SELECTION CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta-left">
+    <div class="sticky-cta-title" id="ctaTitle">Your selections</div>
+    <div class="selected-pills" id="selectedPills"></div>
+    <div class="sticky-cta-sub" id="ctaSub"></div>
+  </div>
+  <a href="start-here.html" class="btn btn-sage" id="ctaBtn" style="flex-shrink:0; font-size:.78rem; padding:10px 22px">Continue to sign up</a>
+</div>
+
+<footer>
+  <div class="container footer-inner">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="how-it-works.html">How it works</a>
+      <a href="services.html">Services</a><a href="pricing.html">Pricing</a>
+      <a href="shop.html">Shop</a><a href="start-here.html">Get started</a>
+    </div>
+    <p>&copy; 2025 Your Modern Matriarch. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+let currentTier = null;
+const limits = { starter: 3, essential: 6, premium: 999 };
+const selected = new Set();
+
+function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+
+function setTier(tier) {
+  currentTier = tier;
+  selected.clear();
+  document.querySelectorAll('.service-card').forEach(c => {
+    c.classList.remove('selected-starter','selected-essential','selected-premium','at-limit');
+  });
+  document.querySelectorAll('.tier-btn').forEach(b => {
+    b.className = 'tier-btn';
+  });
+  document.getElementById('btn-' + tier).classList.add('active-' + tier);
+
+  if (tier === 'premium') {
+    document.querySelectorAll('.service-card').forEach(c => {
+      c.classList.add('selected-premium');
+      selected.add(c.dataset.id);
+    });
+  }
+  updateUI();
+}
+
+function toggleService(card) {
+  if (!currentTier) {
+    alert('Please choose your plan tier at the top of the page first.');
+    return;
+  }
+  if (currentTier === 'premium') return;
+
+  const id = card.dataset.id;
+  const selClass = 'selected-' + currentTier;
+  const limit = limits[currentTier];
+
+  if (selected.has(id)) {
+    selected.delete(id);
+    card.classList.remove(selClass);
+  } else {
+    if (selected.size >= limit) return;
+    selected.add(id);
+    card.classList.add(selClass);
+  }
+  updateUI();
+}
+
+function updateUI() {
+  if (!currentTier) return;
+  const limit = limits[currentTier];
+  const count = selected.size;
+  const tierLabel = currentTier.charAt(0).toUpperCase() + currentTier.slice(1);
+
+  // counter
+  const counter = document.getElementById('counter');
+  if (currentTier === 'premium') {
+    counter.innerHTML = '<strong>All services included</strong>';
+  } else {
+    counter.innerHTML = '<strong>' + count + ' / ' + limit + '</strong> selected';
+  }
+
+  // at-limit dimming
+  document.querySelectorAll('.service-card').forEach(c => {
+    if (currentTier !== 'premium' && !selected.has(c.dataset.id) && count >= limit) {
+      c.classList.add('at-limit');
+    } else {
+      c.classList.remove('at-limit');
+    }
+  });
+
+  // sticky cta
+  const cta = document.getElementById('stickyCta');
+  const pills = document.getElementById('selectedPills');
+  const ctaSub = document.getElementById('ctaSub');
+  const ctaTitle = document.getElementById('ctaTitle');
+
+  if (count > 0 || currentTier === 'premium') {
+    cta.classList.add('visible');
+    ctaTitle.textContent = tierLabel + ' plan' + (currentTier !== 'premium' ? ' — ' + count + ' of ' + limit + ' selected' : ' — all services');
+
+    pills.innerHTML = '';
+    selected.forEach(id => {
+      const card = document.querySelector('[data-id="' + id + '"]');
+      if (!card) return;
+      const name = card.querySelector('.service-name').textContent;
+      const span = document.createElement('span');
+      span.className = 'selected-pill' + (currentTier === 'essential' ? ' blue' : currentTier === 'premium' ? ' blush' : '');
+      span.textContent = name;
+      pills.appendChild(span);
+    });
+
+    if (currentTier !== 'premium' && count < limit) {
+      ctaSub.textContent = 'Choose ' + (limit - count) + ' more service' + (limit - count !== 1 ? 's' : '') + ' to complete your ' + tierLabel + ' plan';
+    } else {
+      ctaSub.textContent = 'Ready! Click to continue to sign up.';
+    }
+  } else {
+    cta.classList.remove('visible');
+  }
+}
+</script>
+</body>
+</html>

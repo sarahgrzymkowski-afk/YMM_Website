@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start Here — Your Modern Matriarch</title>
+  <meta name="description" content="Get started with Your Modern Matriarch. Find the plan that fits your family, or grab a template from the shop." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { background: var(--off-white); padding: 5rem 0 3rem; border-bottom: 1px solid var(--border); }
+    .page-hero h1 { max-width: 600px; }
+    .page-hero p { max-width: 500px; margin-top: 1rem; font-size: 1.05rem; }
+
+    .paths-section { background: var(--white); }
+    .paths-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .path-card {
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 2rem; display: flex; flex-direction: column; gap: 1rem;
+      transition: transform .2s;
+    }
+    .path-card:hover { transform: translateY(-3px); }
+    .path-card.featured { border-color: var(--sage); background: #fff8f5; }
+    .path-num { font-family: var(--font-display); font-size: 3rem; font-weight: 300; color: var(--sage); opacity: .3; line-height: 1; }
+    .path-card h3 { margin-top: -.5rem; }
+    .path-card p { font-size: .9rem; flex: 1; }
+
+    .quiz-section { background: var(--sage-bg); }
+    .quiz-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; max-width: 640px; margin: 2.5rem auto 0; }
+    .quiz-question { font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 1.5rem; line-height: 1.35; }
+    .quiz-options { display: flex; flex-direction: column; gap: .75rem; }
+    .quiz-option {
+      display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.25rem;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      cursor: pointer; transition: all .15s; background: var(--off-white);
+    }
+    .quiz-option:hover { border-color: var(--sage); background: #fff8f5; }
+    .quiz-option input { margin-top: 3px; accent-color: var(--sage); }
+    .quiz-option-label { font-size: .9rem; color: var(--ink-mid); line-height: 1.5; }
+    .quiz-option-label strong { display: block; color: var(--ink); font-size: .95rem; margin-bottom: 2px; }
+    .quiz-result { display: none; margin-top: 1.5rem; padding: 1.5rem; background: var(--sage-bg); border-radius: var(--radius); }
+    .quiz-result.show { display: block; }
+    .quiz-result h4 { margin-bottom: .5rem; }
+    .quiz-result p { font-size: .9rem; margin-bottom: 1rem; }
+
+    .founder-section { background: var(--white); }
+    .founder-grid { display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: start; }
+    .founder-avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: var(--border); border: 3px solid var(--light);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 2.5rem; color: var(--ink-mid);
+      flex-shrink: 0;
+    }
+    .founder-quote {
+      font-family: var(--font-display); font-size: 1.15rem; font-style: italic;
+      line-height: 1.7; color: var(--ink); margin-bottom: 1rem;
+      border-left: 3px solid var(--sage); padding-left: 1.5rem;
+    }
+
+    .final-cta-section { background: var(--sage); text-align: center; }
+    .final-cta-section h2 { color: var(--white); }
+    .final-cta-section p { color: rgba(255,255,255,.85); max-width: 480px; margin: .75rem auto 2rem; }
+
+    @media (max-width: 900px) {
+      .paths-grid { grid-template-columns: 1fr; }
+      .founder-grid { grid-template-columns: 1fr; }
+      .founder-avatar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="shop.html">Shop</a>
+      <a href="start-here.html" class="nav-cta btn active">Get started</a>
+    </div>
+    <div class="nav-ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="shop.html">Shop</a>
+  <a href="start-here.html" class="btn btn-sage">Get started</a>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container fade-up">
+      <h4>Welcome</h4>
+      <div class="divider"></div>
+      <h1>You've been running the show alone long enough.</h1>
+      <p>Whether you want a quick win from the shop or full monthly support, you're in the right place. Let's figure out what fits.</p>
+    </div>
+  </section>
+
+  <section class="section paths-section">
+    <div class="container">
+      <h4>Find your path</h4>
+      <div class="divider"></div>
+      <h2>Three ways to get started.</h2>
+      <div class="paths-grid">
+        <div class="path-card">
+          <div class="path-num">01</div>
+          <h3>Just browsing?</h3>
+          <p>Grab a template from the shop. Instant download, no commitment, no account needed. A great way to see our approach before subscribing.</p>
+          <a href="shop.html" class="btn btn-outline" style="font-size:.75rem; padding:10px 22px; text-align:center;">Browse the shop</a>
+        </div>
+        <div class="path-card featured">
+          <div class="pill pill-terra">Recommended</div>
+          <div class="path-num" style="margin-top:-.5rem;">02</div>
+          <h3>Ready for real support?</h3>
+          <p>Join the Essential plan and we'll build a deep-dive family profile, then deliver six personalized services every month. This is where the magic happens.</p>
+          <a href="pricing.html" class="btn btn-sage" style="font-size:.75rem; padding:10px 22px; text-align:center;">See the Essential plan</a>
+        </div>
+        <div class="path-card">
+          <div class="path-num">03</div>
+          <h3>Not sure yet?</h3>
+          <p>Take the quick quiz below — answer two questions and we'll tell you which plan (or template) is the best starting point for where you're at right now.</p>
+          <a href="#quiz" class="btn btn-outline" style="font-size:.75rem; padding:10px 22px; text-align:center;">Take the quiz</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section quiz-section" id="quiz">
+    <div class="container">
+      <h4>Quick quiz</h4>
+      <div class="divider divider-center" style="margin-left:auto; margin-right:auto;"></div>
+      <h2 style="text-align:center;">Find your fit in 60 seconds.</h2>
+      <div class="quiz-box">
+        <div class="quiz-question">What's your biggest challenge at home right now?</div>
+        <div class="quiz-options">
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="meals" onchange="showResult('meals')">
+            <div class="quiz-option-label"><strong>Meals & groceries</strong>The "what's for dinner" question is daily chaos. I need a system.</div>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="schedule" onchange="showResult('schedule')">
+            <div class="quiz-option-label"><strong>Keeping everyone's schedule straight</strong>Sports, school, appointments — it's all in my head and it's exhausting.</div>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="home" onchange="showResult('home')">
+            <div class="quiz-option-label"><strong>The house itself</strong>Cleaning, chores, maintenance — it falls through the cracks constantly.</div>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="everything" onchange="showResult('everything')">
+            <div class="quiz-option-label"><strong>All of it</strong>I need help across the board. Everything feels like too much.</div>
+          </label>
+        </div>
+
+        <div class="quiz-result" id="result-meals">
+          <h4>Great fit: Starter plan or Meal Planner template</h4>
+          <p>If meals are your main pain point, our Weekly Meal Planner template ($9) gives you a quick win. Ready to go deeper? The Starter plan lets you pick Meal Planning + Grocery List + one more service, all built around your family's preferences and allergies.</p>
+          <div style="display:flex; gap:.75rem; flex-wrap:wrap;">
+            <a href="shop.html" class="btn btn-outline" style="font-size:.75rem; padding:8px 18px;">Get the template</a>
+            <a href="pricing.html" class="btn btn-sage" style="font-size:.75rem; padding:8px 18px;">See Starter plan</a>
+          </div>
+        </div>
+        <div class="quiz-result" id="result-schedule">
+          <h4>Great fit: Starter plan or Weekly Planner template</h4>
+          <p>Our Family Weekly Planner template ($7) is a solid first step. For a fully personalized experience — one that already knows your kids' sports nights and busy weeks — the Starter plan has you covered.</p>
+          <div style="display:flex; gap:.75rem; flex-wrap:wrap;">
+            <a href="shop.html" class="btn btn-outline" style="font-size:.75rem; padding:8px 18px;">Get the template</a>
+            <a href="pricing.html" class="btn btn-sage" style="font-size:.75rem; padding:8px 18px;">See Starter plan</a>
+          </div>
+        </div>
+        <div class="quiz-result" id="result-home">
+          <h4>Great fit: Starter plan</h4>
+          <p>Pick Cleaning Schedule + Chore Chart + Inventory Tracker and we'll build all three around your actual household. No more one-size-fits-all printables.</p>
+          <a href="pricing.html" class="btn btn-sage" style="font-size:.75rem; padding:8px 18px;">See Starter plan</a>
+        </div>
+        <div class="quiz-result" id="result-everything">
+          <h4>Great fit: Essential plan</h4>
+          <p>When everything feels like too much, you need more than three services. The Essential plan gives you six personalized services, an onboarding call, and a monthly check-in — plus a family profile that makes it all feel designed just for you. Because it is.</p>
+          <a href="pricing.html" class="btn btn-sage" style="font-size:.75rem; padding:8px 18px;">See Essential plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER NOTE -->
+  <section class="section founder-section">
+    <div class="container">
+      <div class="founder-grid">
+        <div class="founder-avatar">YMM</div>
+        <div>
+          <h4>A note from the founder</h4>
+          <div class="divider"></div>
+          <blockquote class="founder-quote">
+            "I started Your Modern Matriarch because I kept seeing the same thing: moms who were brilliant, capable, and completely underwater. Not because they weren't organized — but because they were carrying a mental load that nobody else could see."
+          </blockquote>
+          <p>This business exists to give some of that back. Not with more apps or productivity hacks, but with real, personalized help from someone who takes the time to understand your family first.</p>
+          <p>Every deliverable I create is made for a real household — one with specific kids, specific allergies, specific chaotic nights of the week. Because that's what it takes for any of this to actually work.</p>
+          <p>I can't wait to work with you.</p>
+          <p style="font-family:var(--font-display); font-style:italic; font-size:1.1rem; color:var(--ink); margin-top:1.25rem;">— Your Modern Matriarch</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section final-cta-section">
+    <div class="container">
+      <h2>Ready when you are.</h2>
+      <p>Join hundreds of moms who've handed off the planning — and haven't looked back.</p>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="pricing.html" class="btn" style="background:var(--white); color:var(--sage);">See all plans</a>
+        <a href="shop.html" class="btn btn-outline-white">Browse the shop</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="pricing.html">Pricing</a><a href="shop.html">Shop</a><a href="start-here.html">Get started</a>
+    </div>
+    <p>&copy; 2025 Your Modern Matriarch. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+function showResult(val) {
+  document.querySelectorAll('.quiz-result').forEach(r => r.classList.remove('show'));
+  document.getElementById('result-' + val).classList.add('show');
+}
+</script>
+</body>
+</html>

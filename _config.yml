@@ -1,0 +1,11 @@
+title: Your Modern Matriarch
+description: Personalized home management support for moms who are doing it all.
+url: ""
+
+# Tell Jekyll to pass our HTML files through as-is
+include:
+  - "*.html"
+  - "style.css"
+
+# We're not using Jekyll layouts or markdown — just plain HTML
+plugins: []

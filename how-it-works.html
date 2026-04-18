@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — Your Modern Matriarch</title>
+  <meta name="description" content="Learn how Your Modern Matriarch works — from signing up to receiving your personalized family deliverables." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { background: var(--sage-bg); padding: 5rem 0 4rem; border-bottom: 1px solid var(--border); }
+    .page-hero h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); max-width: 640px; }
+    .page-hero p { max-width: 540px; font-size: 1.05rem; margin-top: 1rem; }
+
+    .steps-section { background: var(--white); }
+    .steps-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
+    .steps-sticky { position: sticky; top: calc(var(--nav-h) + 2rem); }
+    .step-item { display: flex; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .step-item:last-child { border-bottom: none; }
+    .step-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1.5px solid var(--sage); color: var(--sage);
+      font-family: var(--font-display); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 4px;
+    }
+    .step-body h3 { margin-bottom: .5rem; }
+    .step-body p { margin-bottom: .75rem; }
+    .step-note {
+      font-size: 0.8rem; background: var(--sage-bg); border-left: 3px solid var(--sage);
+      padding: .75rem 1rem; border-radius: 0 var(--radius) var(--radius) 0;
+      color: var(--ink-mid); line-height: 1.6;
+    }
+
+    .profile-section { background: var(--off-white); }
+    .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    .profile-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+    .profile-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; }
+    .profile-value { font-size: 0.95rem; color: var(--ink); }
+
+    .two-lane { background: var(--white); }
+    .two-lane-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 3rem; }
+    .lane { padding: 2.5rem; background: var(--sage-bg); }
+    .lane:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+    .lane:last-child { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; background: var(--ink); }
+    .lane:last-child h3 { color: var(--off-white); }
+    .lane:last-child p { color: var(--border); opacity: .8; }
+    .lane:last-child h4 { color: var(--sage-lt); }
+
+    .faq-section { background: var(--off-white); }
+    .faq-list { margin-top: 2.5rem; }
+    .faq-item { border-top: 1px solid var(--border); padding: 1.5rem 0; }
+    .faq-item:last-child { border-bottom: 1px solid var(--border); }
+    .faq-q { font-family: var(--font-display); font-size: 1.2rem; color: var(--ink); margin-bottom: .5rem; }
+    .faq-a { color: var(--ink-mid); font-size: .95rem; }
+
+    @media (max-width: 900px) {
+      .steps-layout { grid-template-columns: 1fr; gap: 1rem; }
+      .steps-sticky { position: static; }
+      .profile-grid { grid-template-columns: 1fr 1fr; }
+      .two-lane-grid { grid-template-columns: 1fr; }
+      .lane:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+      .lane:last-child { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+    }
+    @media (max-width: 580px) {
+      .profile-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html" class="active">How it works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="shop.html">Shop</a>
+      <a href="start-here.html" class="nav-cta btn">Get started</a>
+    </div>
+    <div class="nav-ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="shop.html">Shop</a>
+  <a href="start-here.html" class="btn btn-sage">Get started</a>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container fade-up">
+      <h4>The process</h4>
+      <div class="divider"></div>
+      <h1>Home management that actually knows your home.</h1>
+      <p>Here's exactly what happens from the moment you sign up — no guesswork, no surprises.</p>
+    </div>
+  </section>
+
+  <section class="section steps-section">
+    <div class="container">
+      <div class="steps-layout">
+        <div class="steps-sticky">
+          <h4>Step by step</h4>
+          <div class="divider"></div>
+          <h2>Five steps to a household that runs itself.</h2>
+          <p style="margin-top:1rem;">Most home management tools give you a blank template and wish you luck. We do something different.</p>
+          <a href="start-here.html" class="btn btn-sage" style="margin-top:1.5rem; display:inline-block;">Start today</a>
+        </div>
+        <div>
+          <div class="step-item">
+            <div class="step-circle">1</div>
+            <div class="step-body">
+              <h3>Pick your plan</h3>
+              <p>Choose Starter, Essential, or Premium based on how much support you need. Not sure? Most moms start with Essential — it covers the most ground and includes a personal onboarding call.</p>
+              <div class="step-note">You can upgrade or downgrade at any time. No long commitments.</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">2</div>
+            <div class="step-body">
+              <h3>Complete your family profile</h3>
+              <p>After signing up, you'll fill out a short intake form. We ask about your kids' ages and activities, any allergies or dietary restrictions, food preferences, your grocery budget, and the nights each week that are absolute chaos.</p>
+              <div class="step-note">This is what makes everything personal. No two family profiles are the same — and no two deliverables will be either.</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">3</div>
+            <div class="step-body">
+              <h3>Choose your services</h3>
+              <p>Select the services that matter most to your household — meal planning, scheduling, cleaning systems, kids' school organization, or any combination. Starter members pick 3, Essential picks 6, and Premium gets everything.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">4</div>
+            <div class="step-body">
+              <h3>Receive your deliverables</h3>
+              <p>Based on your profile and service selections, we build everything from scratch — personalized, ready to use, and delivered straight to your inbox. No blank templates to figure out yourself.</p>
+              <div class="step-note">Starter: within 5 business days. Essential: within 3. Premium: within 2.</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">5</div>
+            <div class="step-body">
+              <h3>We check in and adjust</h3>
+              <p>Life changes — kids switch sports, picky eaters evolve, schedules shift. Essential and Premium members get monthly check-ins so your support always reflects your real life.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAMILY PROFILE EXAMPLE -->
+  <section class="section profile-section">
+    <div class="container">
+      <h4>Your family profile</h4>
+      <div class="divider"></div>
+      <h2>Everything we build starts here.</h2>
+      <p style="max-width:540px; margin-top:.75rem;">At onboarding, you complete a detailed intake. Here's a sample of what a family profile looks like — and why it changes everything.</p>
+      <div class="profile-grid">
+        <div class="profile-item"><div class="profile-label">Kids</div><div class="profile-value">Ella, age 9 &amp; Jack, age 6</div></div>
+        <div class="profile-item"><div class="profile-label">Allergies</div><div class="profile-value">Peanuts, dairy</div></div>
+        <div class="profile-item"><div class="profile-label">Sports &amp; activities</div><div class="profile-value">Soccer Tue/Thu, swim Sat</div></div>
+        <div class="profile-item"><div class="profile-label">Food preferences</div><div class="profile-value">No spicy, love pasta &amp; rice</div></div>
+        <div class="profile-item"><div class="profile-label">Grocery budget</div><div class="profile-value">~$175/week</div></div>
+        <div class="profile-item"><div class="profile-label">Busy nights</div><div class="profile-value">Tuesday &amp; Thursday</div></div>
+      </div>
+      <p style="margin-top:1.5rem; max-width:560px; font-size:.9rem;">With this profile, every meal plan will be peanut and dairy-free. Tuesday and Thursday will always feature quick 20-minute dinners. Soccer snacks will be prepped for the week. That's what personalized actually means.</p>
+    </div>
+  </section>
+
+  <!-- SELF-SERVE VS SUBSCRIPTION -->
+  <section class="section two-lane">
+    <div class="container">
+      <h4>Two ways to get started</h4>
+      <div class="divider"></div>
+      <div class="two-lane-grid">
+        <div class="lane">
+          <h4>Self-serve shop</h4>
+          <h3>Not ready to subscribe?</h3>
+          <p>Start with a template from our shop. Each one is a practical, well-designed tool you can use right away — no customization needed. Great for trying our approach before committing.</p>
+          <p>Meal planners, cleaning schedules, family calendars, back-to-school packs, chore charts — all available as instant downloads.</p>
+          <a href="shop.html" class="btn btn-outline" style="margin-top:.75rem;">Browse the shop</a>
+        </div>
+        <div class="lane">
+          <h4>Subscription plans</h4>
+          <h3>Want it built for you?</h3>
+          <p>Subscribe and we take the template out of the picture entirely. You get deliverables designed for your family — your kids, your allergies, your schedule — not a hypothetical household.</p>
+          <p>This is what makes Your Modern Matriarch different from anything else out there.</p>
+          <a href="pricing.html" class="btn btn-outline-white" style="margin-top:.75rem;">See plans</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section">
+    <div class="container">
+      <h4>Common questions</h4>
+      <div class="divider"></div>
+      <h2>Good questions deserve honest answers.</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">How long does it take to get my first deliverables?</div>
+          <div class="faq-a">Starter members receive their first deliverables within 5 business days of completing their profile. Essential within 3 business days, Premium within 2.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I change which services I've selected?</div>
+          <div class="faq-a">Yes — once per billing cycle. Just reach out before your renewal date and we'll update your selections for the following month.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What if my family situation changes mid-month?</div>
+          <div class="faq-a">That's exactly what the check-ins are for. Let us know at any time and we'll update your profile. Essential and Premium members can request an interim update outside the monthly check-in too.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do I need to subscribe to buy from the shop?</div>
+          <div class="faq-a">Not at all. The shop is open to everyone. All templates are one-time purchases with instant download — no account required.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I cancel my subscription?</div>
+          <div class="faq-a">Yes, anytime. Cancel before your next billing date and you won't be charged. No long contracts, no cancellation fees.</div>
+        </div>
+      </div>
+      <div style="margin-top:2.5rem; text-align:center;">
+        <a href="start-here.html" class="btn btn-sage">Ready to start?</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <a href="index.html" class="nav-logo">Your Modern Matriarch<span>Home Management</span></a>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="shop.html">Shop</a>
+      <a href="start-here.html">Get started</a>
+    </div>
+    <p>&copy; 2025 Your Modern Matriarch. All rights reserved.</p>
+  </div>
+</footer>
+<script>function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}</script>
+</body>
+</html>
